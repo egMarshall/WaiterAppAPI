@@ -13,6 +13,12 @@ mongoose.connect(`mongodb://localhost:${process.env.MONGO_DB_PORT}`)
     const app = express();
     const port = process.env.API_PORT || 3001;
 
+    app.use((req, res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', '*');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    });
+
     app.use(express.json());
     app.use(router);
     app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
